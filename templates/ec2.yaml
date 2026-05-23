@@ -17,4 +17,4 @@ Resources:
 Outputs:
 
   InstanceId:
-    Value: !Ref MyEC2Nwe
+    Value: !Ref MyEC2New
