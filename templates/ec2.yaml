@@ -17,5 +17,4 @@ Resources:
 Outputs:
 
   InstanceId:
-    Description: ID de la instancia EC2
     Value: !Ref MyEC2
