@@ -16,5 +16,5 @@ jobs:
 
       - name: Delete CloudFormation stack
         run: |
-          aws cloudformation delete-stack --stack-name ec2-stack-clase --region us-east-1
-          aws cloudformation wait stack-delete-complete --stack-name ec2-stack-clase --region us-east-1
+          aws cloudformation delete-stack --stack-name ec2-stack-class-new --region us-east-1
+          aws cloudformation wait stack-delete-complete --stack-name eec2-stack-class-new --region us-east-1
