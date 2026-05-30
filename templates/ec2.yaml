@@ -48,4 +48,4 @@ Outputs:
   InstanceId:
     Value: !Ref MyEC2NewClass
   PublicIp:
-    Value: !GetAtt MyEC2.PublicIp
+    Value: !GetAtt MyEC2NewClass.PublicIp
