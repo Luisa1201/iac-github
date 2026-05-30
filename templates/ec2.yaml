@@ -3,7 +3,7 @@ Description: EC2 creada desde GitHub Actions
 
 Resources:
 
-  MyEC2New:
+  MyEC2NewClass:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-0cca150d127c2216f
@@ -16,4 +16,4 @@ Resources:
 Outputs:
 
   InstanceId:
-    Value: !Ref MyEC2New
+    Value: !Ref MyEC2NewClass
