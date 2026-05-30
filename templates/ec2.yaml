@@ -1,13 +1,43 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: EC2 creada desde GitHub Actions
 
+Parameters:
+  VpcId:
+    Type: String
+    Default: ""
+    Description: VPC Id (optional). If empty, VpcId property is omitted.
+
+Conditions:
+  HasVpc: !Not [ !Equals [ !Ref VpcId, "" ] ]
+
 Resources:
+
+  WebSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP access
+      VpcId: !If [ HasVpc, !Ref VpcId, !Ref "AWS::NoValue" ]
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
 
   MyEC2NewClass:
     Type: AWS::EC2::Instance
     Properties:
+      AvailabilityZone: us-east-1a
       ImageId: ami-0cca150d127c2216f
       InstanceType: t3.micro
+      SecurityGroupIds:
+        - !Ref WebSecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash
+        yum update -y
+        yum install -y httpd
+        systemctl enable httpd
+        systemctl start httpd
+        echo "Hello from GitHub Actions" > /var/www/html/index.html
 
       Tags:
         - Key: Name
@@ -17,3 +47,5 @@ Outputs:
 
   InstanceId:
     Value: !Ref MyEC2NewClass
+  PublicIp:
+    Value: !GetAtt MyEC2.PublicIp
